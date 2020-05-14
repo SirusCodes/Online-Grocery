@@ -123,7 +123,6 @@ class MainScreen extends StatelessWidget {
           Divider(
             indent: 15,
             endIndent: 15,
-            thickness: 2,
           ),
           ListTile(
             title: Text(
