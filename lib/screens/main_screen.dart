@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/constants.dart';
+import 'package:online_grocery/screens/item_list.dart';
 import 'package:online_grocery/screens/settings_screen.dart';
 import 'package:online_grocery/widgets/product_without_buttons.dart';
 
@@ -51,9 +52,9 @@ class MainScreen extends StatelessWidget {
                 ],
               ),
             ),
-            seeAllButton(context, icon, "Fruits", () {}),
+            seeAllButton(context, icon, "Fruits"),
             horizontalScroll("fruits", fruits),
-            seeAllButton(context, icon, "Vegetables", () {}),
+            seeAllButton(context, icon, "Vegetables"),
             horizontalScroll("vegetables", vegetables)
           ],
         ),
@@ -79,11 +80,13 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  FlatButton seeAllButton(
-      BuildContext context, Icon icon, String title, Function onPressed) {
+  FlatButton seeAllButton(BuildContext context, Icon icon, String title) {
     return FlatButton(
       padding: const EdgeInsets.all(8.0),
-      onPressed: onPressed,
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => ItemList(type: title)));
+      },
       splashColor: Colors.deepOrange[50],
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
