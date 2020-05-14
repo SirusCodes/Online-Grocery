@@ -1,20 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:online_grocery/screens/product_details.dart';
 import 'package:online_grocery/widgets/add_to_cart_button.dart';
 
-class Product extends StatelessWidget {
-  const Product({Key key}) : super(key: key);
+class Product extends StatefulWidget {
+  const Product({Key key, @required this.imageAsset, @required this.title})
+      : super(key: key);
+  final String imageAsset, title;
+  @override
+  _ProductState createState() => _ProductState();
+}
+
+class _ProductState extends State<Product> {
+  Image image;
+
+  @override
+  void initState() {
+    super.initState();
+    image = Image.asset(widget.imageAsset);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(image.image, context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ProductDetails(
+            image: image,
+            title: widget.title,
+          ),
+        ),
+      ),
       child: Card(
         child: Column(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ClipRRect(
+              child: Hero(
+                tag: widget.title,
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child: Image.asset("assets/images/avacado.jpg")),
+                  child: image,
+                ),
+              ),
             ),
             Expanded(
               child: Padding(
@@ -22,8 +56,10 @@ class Product extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    buildTitle(context, "Avacado"),
-                    AddToCardButton(),
+                    buildTitle(context, widget.title),
+                    AddToCardButton(
+                      key: Key(widget.title),
+                    ),
                   ],
                 ),
               ),

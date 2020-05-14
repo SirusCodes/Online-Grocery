@@ -49,9 +49,18 @@ class MainScreen extends StatelessWidget {
           crossAxisCount: 2,
           childAspectRatio: 6 / 9,
           children: <Widget>[
-            Product(),
-            Product(),
-            Product(),
+            Product(
+              imageAsset: "assets/images/avocado.jpg",
+              title: "Avocado",
+            ),
+            Product(
+              imageAsset: "assets/images/orange.jpg",
+              title: "Orange",
+            ),
+            Product(
+              imageAsset: "assets/images/banana.jpg",
+              title: "Banana",
+            ),
           ],
         ),
       ),

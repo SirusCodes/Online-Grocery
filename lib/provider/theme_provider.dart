@@ -24,7 +24,10 @@ final darkTheme = ThemeData(
   scaffoldBackgroundColor: const Color(0xFF1E1E1E),
   accentIconTheme: IconThemeData(color: Colors.black),
   dividerColor: Colors.white60,
-  textTheme: TextTheme(headline6: TextStyle(color: Colors.white60)),
+  textTheme: TextTheme(
+    headline6: TextStyle(color: Colors.white60),
+    headline4: TextStyle(color: Colors.white),
+  ),
   appBarTheme: AppBarTheme(elevation: 0.0, color: const Color(0xFF1E1E1E)),
 );
 
@@ -34,8 +37,11 @@ final lightTheme = ThemeData(
   accentColor: Colors.black,
   accentIconTheme: IconThemeData(color: Colors.white),
   scaffoldBackgroundColor: Colors.white,
-  dividerColor: Colors.white54,
-  textTheme: TextTheme(headline6: TextStyle(color: Colors.black38)),
+  dividerColor: Colors.black26,
+  textTheme: TextTheme(
+    headline6: TextStyle(color: Colors.black38),
+    headline4: TextStyle(color: Colors.black),
+  ),
   appBarTheme: AppBarTheme(elevation: 0.0, color: Colors.white),
   buttonTheme: ButtonThemeData(
     textTheme: ButtonTextTheme.primary,
