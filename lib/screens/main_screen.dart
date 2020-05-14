@@ -43,26 +43,32 @@ class MainScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: GridView.count(
-          crossAxisCount: 2,
-          childAspectRatio: 6 / 9,
-          children: <Widget>[
-            Product(
-              imageAsset: "assets/images/avocado.jpg",
-              title: "Avocado",
-            ),
-            Product(
-              imageAsset: "assets/images/orange.jpg",
-              title: "Orange",
-            ),
-            Product(
-              imageAsset: "assets/images/banana.jpg",
-              title: "Banana",
-            ),
-          ],
-        ),
+      body: GridView.count(
+        padding: const EdgeInsets.all(8.0),
+        crossAxisCount: 2,
+        childAspectRatio: 6 / 9,
+        children: <Widget>[
+          Product(
+            imageAsset: "assets/images/fruits/avocado.jpg",
+            title: "Avocado",
+          ),
+          Product(
+            imageAsset: "assets/images/fruits/orange.jpg",
+            title: "Orange",
+          ),
+          Product(
+            imageAsset: "assets/images/fruits/banana.jpg",
+            title: "Banana",
+          ),
+          Product(
+            imageAsset: "assets/images/fruits/lemon.jpg",
+            title: "Lemon",
+          ),
+          Product(
+            imageAsset: "assets/images/fruits/cherry.jpg",
+            title: "Cherry",
+          ),
+        ],
       ),
     );
   }

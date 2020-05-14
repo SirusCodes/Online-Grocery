@@ -42,7 +42,10 @@ class ProductDetails extends StatelessWidget {
             ),
           ),
           Divider(),
-          AddToCardButton(title: title),
+          AddToCardButton(
+            title: title,
+            image: image,
+          ),
           SizedBox(height: 15),
           Text(
             "Details:",

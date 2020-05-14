@@ -16,7 +16,10 @@ class _ProductState extends State<Product> {
   @override
   void initState() {
     super.initState();
-    image = Image.asset(widget.imageAsset);
+    image = Image.asset(
+      widget.imageAsset,
+      fit: BoxFit.scaleDown,
+    );
   }
 
   @override
@@ -57,7 +60,10 @@ class _ProductState extends State<Product> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     buildTitle(context, widget.title),
-                    AddToCardButton(title: widget.title),
+                    AddToCardButton(
+                      title: widget.title,
+                      image: image,
+                    ),
                   ],
                 ),
               ),

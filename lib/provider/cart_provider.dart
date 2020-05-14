@@ -1,29 +1,37 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:online_grocery/models/product_model.dart';
 
 class CartProvider extends ChangeNotifier {
-  static Map<String, int> _cart = {};
+  static List<ProductModel> _cart = [];
 
-  Map<String, int> get getCart => _cart;
+  List<ProductModel> get getCart => _cart;
 
-  void incrementItem(String item) {
-    if (_cart.containsKey(item))
-      _cart[item]++;
+  void incrementItem(String item, Image image) {
+    int i = _cart.indexWhere((element) => element.name == item);
+    if (i == -1)
+      _cart.add(ProductModel(item, 1, image));
     else
-      _cart[item] = 1;
+      _cart[i].count++;
 
     notifyListeners();
   }
 
   void decrementItem(String item) {
-    if (_cart[item] - 1 == 0)
-      _cart.remove(item);
-    else
-      _cart[item]--;
+    ProductModel _model = _cart.firstWhere((element) => element.name == item);
+
+    _model.count--;
+    if (_model.count == 0) _cart.remove(_model);
 
     notifyListeners();
   }
 
   int getItemCount(String item) {
-    return _cart[item] ?? 0;
+    ProductModel _model = _cart.firstWhere(
+      (element) => element.name == item,
+      orElse: () => ProductModel(null, null, null), // return null object
+    );
+
+    return _model.count ?? 0;
   }
 }

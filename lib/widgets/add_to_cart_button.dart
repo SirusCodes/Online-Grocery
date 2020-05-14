@@ -3,9 +3,11 @@ import 'package:online_grocery/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddToCardButton extends StatelessWidget {
-  AddToCardButton({Key key, @required this.title}) : super(key: key);
+  AddToCardButton({Key key, @required this.title, @required this.image})
+      : super(key: key);
 
-  final title;
+  final String title;
+  final Image image;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class AddToCardButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            onPressed: () => _countProvider.incrementItem(title),
+            onPressed: () => _countProvider.incrementItem(title, image),
             child: Text("Add to Cart"),
           )
         : Row(
@@ -38,7 +40,7 @@ class AddToCardButton extends StatelessWidget {
                 child: RaisedButton(
                   padding: const EdgeInsets.all(1),
                   shape: CircleBorder(),
-                  onPressed: () => _countProvider.incrementItem(title),
+                  onPressed: () => _countProvider.incrementItem(title, image),
                   child: Icon(Icons.add),
                 ),
               )
