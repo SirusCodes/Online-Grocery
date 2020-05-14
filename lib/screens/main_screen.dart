@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_grocery/constants.dart';
 import 'package:online_grocery/screens/item_list.dart';
 import 'package:online_grocery/screens/settings_screen.dart';
+import 'package:online_grocery/widgets/cart_icon.dart';
 import 'package:online_grocery/widgets/product_without_buttons.dart';
 
 class MainScreen extends StatelessWidget {
@@ -30,6 +31,7 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Online Grocery"),
+        actions: <Widget>[CartIcon()],
       ),
       drawer: buildDrawer(context),
       body: SingleChildScrollView(

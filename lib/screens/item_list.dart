@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/constants.dart';
+import 'package:online_grocery/widgets/cart_icon.dart';
 import 'package:online_grocery/widgets/product.dart';
 
 class ItemList extends StatelessWidget {
@@ -11,6 +12,7 @@ class ItemList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(type),
+        actions: <Widget>[CartIcon()],
       ),
       body: GridView.count(
         padding: const EdgeInsets.all(8.0),
