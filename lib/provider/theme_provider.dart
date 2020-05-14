@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeData _themeData;
+  ThemeData themeData;
 
-  getTheme() => _themeData ?? darkTheme;
+  ThemeProvider({this.themeData});
 
-  setTheme(ThemeData themeData) {
-    _themeData = themeData;
+  getTheme() => themeData;
+
+  setTheme(ThemeData themeData) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("darkMode", themeData == darkTheme);
+    this.themeData = themeData;
     notifyListeners();
   }
 }
