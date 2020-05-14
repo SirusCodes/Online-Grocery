@@ -57,9 +57,7 @@ class _ProductState extends State<Product> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     buildTitle(context, widget.title),
-                    AddToCardButton(
-                      key: Key(widget.title),
-                    ),
+                    AddToCardButton(title: widget.title),
                   ],
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:online_grocery/provider/cart_provider.dart';
 import 'package:online_grocery/provider/theme_provider.dart';
 import 'package:online_grocery/screens/main_screen.dart';
 import 'package:provider/provider.dart';
@@ -29,11 +30,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
       builder: (context, theme, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Online Grocery',
-          theme: theme.getTheme(),
-          home: MainScreen(),
+        return ChangeNotifierProvider<CartProvider>(
+          create: (_) => CartProvider(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Online Grocery',
+            theme: theme.getTheme(),
+            home: MainScreen(),
+          ),
         );
       },
     );

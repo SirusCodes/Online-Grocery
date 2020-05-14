@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:online_grocery/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 
-class AddToCardButton extends StatefulWidget {
-  AddToCardButton({Key key}) : super(key: key);
+class AddToCardButton extends StatelessWidget {
+  AddToCardButton({Key key, @required this.title}) : super(key: key);
 
-  @override
-  _AddToCardButtonState createState() => _AddToCardButtonState();
-}
+  final title;
 
-class _AddToCardButtonState extends State<AddToCardButton> {
-  int _count = 0;
   @override
   Widget build(BuildContext context) {
-    return _count <= 0
+    final _countProvider = Provider.of<CartProvider>(context);
+    return _countProvider.getItemCount(title) <= 0
         ? RaisedButton(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            onPressed: _increment,
+            onPressed: () => _countProvider.incrementItem(title),
             child: Text("Add to Cart"),
           )
         : Row(
@@ -25,37 +24,25 @@ class _AddToCardButtonState extends State<AddToCardButton> {
                 child: RaisedButton(
                   padding: const EdgeInsets.all(1),
                   shape: CircleBorder(),
-                  onPressed: _decrement,
+                  onPressed: () => _countProvider.decrementItem(title),
                   child: Icon(Icons.remove),
                 ),
               ),
               Expanded(
                   child: Center(
                       child: Text(
-                _count.toString(),
+                _countProvider.getItemCount(title).toString(),
                 style: Theme.of(context).textTheme.headline5,
               ))),
               Expanded(
                 child: RaisedButton(
                   padding: const EdgeInsets.all(1),
                   shape: CircleBorder(),
-                  onPressed: _increment,
+                  onPressed: () => _countProvider.incrementItem(title),
                   child: Icon(Icons.add),
                 ),
               )
             ],
           );
-  }
-
-  _increment() {
-    setState(() {
-      _count++;
-    });
-  }
-
-  _decrement() {
-    setState(() {
-      _count--;
-    });
   }
 }
