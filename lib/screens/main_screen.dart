@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/screens/settings_screen.dart';
+import 'package:online_grocery/widgets/product.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key key}) : super(key: key);
@@ -34,11 +35,23 @@ class MainScreen extends StatelessWidget {
             ListTile(
               title: Text(
                 "Settings",
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).primaryTextTheme.headline6,
               ),
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => SettingsScreen())),
             )
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 6 / 9,
+          children: <Widget>[
+            Product(),
+            Product(),
+            Product(),
           ],
         ),
       ),
