@@ -16,10 +16,7 @@ class _ProductState extends State<Product> {
   @override
   void initState() {
     super.initState();
-    image = Image.asset(
-      widget.imageAsset,
-      fit: BoxFit.scaleDown,
-    );
+    image = Image.asset(widget.imageAsset);
   }
 
   @override

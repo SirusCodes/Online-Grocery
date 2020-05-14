@@ -24,6 +24,7 @@ final darkTheme = ThemeData(
   scaffoldBackgroundColor: const Color(0xFF1E1E1E),
   accentIconTheme: IconThemeData(color: Colors.black),
   dividerColor: Colors.white60,
+  iconTheme: IconThemeData(color: Colors.white38),
   textTheme: TextTheme(
     headline6: TextStyle(color: Colors.white60),
     headline4: TextStyle(color: Colors.white),
@@ -38,6 +39,7 @@ final lightTheme = ThemeData(
   accentIconTheme: IconThemeData(color: Colors.white),
   scaffoldBackgroundColor: Colors.white,
   dividerColor: Colors.black26,
+  iconTheme: IconThemeData(color: Colors.black45),
   textTheme: TextTheme(
     headline6: TextStyle(color: Colors.black38),
     headline4: TextStyle(color: Colors.black),
