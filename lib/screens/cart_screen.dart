@@ -26,11 +26,21 @@ class CartScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.deepOrangeAccent,
-        onPressed: () {},
-        icon: Icon(Icons.check),
-        label: Text("₹₹₹₹"),
+      floatingActionButton: Consumer<CartProvider>(
+        builder: (context, cart, child) {
+          return FloatingActionButton.extended(
+            backgroundColor: Colors.deepOrangeAccent,
+            onPressed: () {},
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            label: Text(
+              "₹${cart.getCartTotal}",
+              style: TextStyle(color: Colors.white),
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:online_grocery/constants.dart';
 import 'package:online_grocery/models/product_model.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -33,5 +34,9 @@ class CartProvider extends ChangeNotifier {
     );
 
     return _model.count ?? 0;
+  }
+
+  int get getCartTotal {
+    return _cart.fold(0, (value, e) => value + (e.count * prices[e.name]));
   }
 }

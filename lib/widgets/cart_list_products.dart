@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:online_grocery/models/product_model.dart';
 import 'package:online_grocery/widgets/add_to_cart_button.dart';
 
+import '../constants.dart';
+
 class CartListProducts extends StatelessWidget {
   const CartListProducts({Key key, @required this.model}) : super(key: key);
   final ProductModel model;
@@ -27,7 +29,7 @@ class CartListProducts extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
-                  "${model.count} x ₹₹₹",
+                  "${model.count} x ₹${prices[model.name]}",
                   style: TextStyle(fontSize: 17),
                 ),
                 SizedBox(
@@ -41,7 +43,7 @@ class CartListProducts extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              "₹₹₹",
+              "₹${prices[model.name] * model.count}",
               style: TextStyle(fontSize: 25),
             ),
           ],

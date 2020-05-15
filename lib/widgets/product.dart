@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:online_grocery/screens/product_details.dart';
 import 'package:online_grocery/widgets/add_to_cart_button.dart';
 
+import '../constants.dart';
+
 class Product extends StatefulWidget {
   const Product({Key key, @required this.imageAsset, @required this.title})
       : super(key: key);
@@ -80,7 +82,7 @@ class _ProductState extends State<Product> {
           style: Theme.of(context).primaryTextTheme.headline6,
         ),
         Text(
-          "₹₹₹",
+          "₹${prices[title]}",
           style: Theme.of(context).textTheme.headline6,
         ),
       ],

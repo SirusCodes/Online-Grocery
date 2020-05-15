@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/widgets/add_to_cart_button.dart';
 
+import '../constants.dart';
+
 class ProductDetails extends StatelessWidget {
   const ProductDetails({Key key, this.title, this.image}) : super(key: key);
   final String title;
@@ -35,7 +37,7 @@ class ProductDetails extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  "₹₹₹",
+                  "₹${prices[title]}",
                   style: Theme.of(context).textTheme.headline6,
                 )
               ],
