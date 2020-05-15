@@ -179,7 +179,10 @@ class _MainScreenState extends State<MainScreen> {
             builder: (context, AsyncSnapshot<String> snapshot) {
               return Text(
                 "Current Location: ${snapshot.data}",
-                style: Theme.of(context).primaryTextTheme.headline6,
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .headline6
+                    .copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
               );
             },
