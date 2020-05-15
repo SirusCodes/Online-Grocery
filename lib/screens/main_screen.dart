@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/constants.dart';
+import 'package:online_grocery/get_it/images_get_it.dart';
+import 'package:online_grocery/locator.dart';
 import 'package:online_grocery/screens/item_list.dart';
 import 'package:online_grocery/screens/settings_screen.dart';
 import 'package:online_grocery/widgets/cart_icon.dart';
 import 'package:online_grocery/widgets/product_without_buttons.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({Key key}) : super(key: key);
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final getIt = locator<ImagesGetIt>();
+
+  @override
+  void initState() {
+    super.initState();
+    getIt.initAll();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getIt.cacheImages(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +76,16 @@ class MainScreen extends StatelessWidget {
               ),
             ),
             seeAllButton(context, icon, "Fruits"),
-            horizontalScroll("fruits", fruits),
+            horizontalScroll(getIt.getFruits, fruits),
             seeAllButton(context, icon, "Vegetables"),
-            horizontalScroll("vegetables", vegetables)
+            horizontalScroll(getIt.getVegetables, vegetables)
           ],
         ),
       ),
     );
   }
 
-  SizedBox horizontalScroll(String type, List<String> list) {
+  SizedBox horizontalScroll(List<Image> imgList, List<String> list) {
     return SizedBox(
       height: 200.0,
       child: ListView.builder(
@@ -74,7 +95,7 @@ class MainScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return ProductsWithoutButtons(
-            type: type,
+            image: imgList[index],
             name: list[index],
           );
         },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:online_grocery/locator.dart';
 import 'package:online_grocery/provider/cart_provider.dart';
 import 'package:online_grocery/provider/theme_provider.dart';
 import 'package:online_grocery/screens/main_screen.dart';
@@ -8,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  setup(); // initializing get it
 
   // take the previously set theme and pass it to the provider
   SharedPreferences.getInstance().then((value) {

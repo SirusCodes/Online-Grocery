@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/constants.dart';
+import 'package:online_grocery/get_it/images_get_it.dart';
+import 'package:online_grocery/locator.dart';
 import 'package:online_grocery/widgets/cart_icon.dart';
 import 'package:online_grocery/widgets/product.dart';
 
@@ -8,7 +10,24 @@ class ItemList extends StatelessWidget {
   final String type;
   @override
   Widget build(BuildContext context) {
-    final list = type == "Fruits" ? fruits : vegetables;
+    final getIt = locator<ImagesGetIt>();
+    List images, names;
+    if (type == "Fruits") {
+      images = getIt.getFruits;
+      names = fruits;
+    } else {
+      images = getIt.getVegetables;
+      names = vegetables;
+    }
+
+    buildProductsList() {
+      List<Product> prodList = [];
+      for (var i = 0; i < 5; i++) {
+        prodList.add(Product(image: images[i], title: names[i]));
+      }
+      return prodList;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(type),
@@ -18,15 +37,7 @@ class ItemList extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         crossAxisCount: 2,
         childAspectRatio: 6 / 9,
-        children: list
-            .map(
-              (e) => Product(
-                imageAsset:
-                    "assets/images/${type.toLowerCase()}/${e.toLowerCase()}.jpg",
-                title: e,
-              ),
-            )
-            .toList(),
+        children: buildProductsList(),
       ),
     );
   }

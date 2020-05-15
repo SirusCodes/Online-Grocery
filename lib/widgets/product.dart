@@ -4,28 +4,11 @@ import 'package:online_grocery/widgets/add_to_cart_button.dart';
 
 import '../constants.dart';
 
-class Product extends StatefulWidget {
-  const Product({Key key, @required this.imageAsset, @required this.title})
+class Product extends StatelessWidget {
+  const Product({Key key, @required this.image, @required this.title})
       : super(key: key);
-  final String imageAsset, title;
-  @override
-  _ProductState createState() => _ProductState();
-}
-
-class _ProductState extends State<Product> {
-  Image image;
-
-  @override
-  void initState() {
-    super.initState();
-    image = Image.asset(widget.imageAsset);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    precacheImage(image.image, context);
-  }
+  final String title;
+  final Image image;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +18,7 @@ class _ProductState extends State<Product> {
         MaterialPageRoute(
           builder: (_) => ProductDetails(
             image: image,
-            title: widget.title,
+            title: title,
           ),
         ),
       ),
@@ -45,7 +28,7 @@ class _ProductState extends State<Product> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Hero(
-                tag: widget.title,
+                tag: title,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: image,
@@ -58,9 +41,9 @@ class _ProductState extends State<Product> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    buildTitle(context, widget.title),
+                    buildTitle(context, title),
                     AddToCardButton(
-                      title: widget.title,
+                      title: title,
                       image: image,
                     ),
                   ],

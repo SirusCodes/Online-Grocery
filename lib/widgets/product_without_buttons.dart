@@ -1,32 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/screens/product_details.dart';
 
-class ProductsWithoutButtons extends StatefulWidget {
-  const ProductsWithoutButtons({Key key, this.name, this.type})
+class ProductsWithoutButtons extends StatelessWidget {
+  const ProductsWithoutButtons({Key key, this.name, this.image})
       : super(key: key);
-  final String name, type;
-
-  @override
-  _ProductsWithoutButtonsState createState() => _ProductsWithoutButtonsState();
-}
-
-class _ProductsWithoutButtonsState extends State<ProductsWithoutButtons> {
-  Image image;
-
-  @override
-  void initState() {
-    super.initState();
-    image = Image.asset(
-      "assets/images/${widget.type}/${widget.name.toLowerCase()}.jpg",
-      gaplessPlayback: true,
-    );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    precacheImage(image.image, context);
-  }
+  final String name;
+  final Image image;
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +17,12 @@ class _ProductsWithoutButtonsState extends State<ProductsWithoutButtons> {
           MaterialPageRoute(
             builder: (_) => ProductDetails(
               image: image,
-              title: widget.name,
+              title: name,
             ),
           ),
         ),
         child: Hero(
-          tag: widget.name,
+          tag: name,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: image,
