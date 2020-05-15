@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/constants.dart';
 import 'package:online_grocery/get_it/images_get_it.dart';
+import 'package:online_grocery/get_it/location_handler.dart';
 import 'package:online_grocery/locator.dart';
 import 'package:online_grocery/screens/item_list.dart';
 import 'package:online_grocery/screens/settings_screen.dart';
@@ -15,18 +16,26 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final getIt = locator<ImagesGetIt>();
+  final imageGetIt = locator<ImagesGetIt>();
+  final locationGetIt = locator<LocationHandler>();
 
   @override
   void initState() {
     super.initState();
-    getIt.initAll();
+    imageGetIt.initAll();
+    if (!locationGetIt.getPermStatus) locationGetIt.requestLocationPerm();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    getIt.cacheImages(context);
+    imageGetIt.cacheImages(context);
+
+    // it will update the app location after 2 sec
+    // might use stream after later!!
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {});
+    });
   }
 
   @override
@@ -75,10 +84,11 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
             ),
+            locationButton(),
             seeAllButton(context, icon, "Fruits"),
-            horizontalScroll(getIt.getFruits, fruits),
+            horizontalScroll(imageGetIt.getFruits, fruits),
             seeAllButton(context, icon, "Vegetables"),
-            horizontalScroll(getIt.getVegetables, vegetables)
+            horizontalScroll(imageGetIt.getVegetables, vegetables)
           ],
         ),
       ),
@@ -156,5 +166,34 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
     );
+  }
+
+  Widget locationButton() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width - 30,
+      height: 50,
+      child: RaisedButton(
+        child: FittedBox(
+          child: FutureBuilder(
+            future: locationGetIt.getLastLocationAdd(),
+            builder: (context, AsyncSnapshot<String> snapshot) {
+              return Text(
+                "Current Location: ${snapshot.data}",
+                style: Theme.of(context).primaryTextTheme.headline6,
+                textAlign: TextAlign.center,
+              );
+            },
+          ),
+        ),
+        onPressed: _reqPerm,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+      ),
+    );
+  }
+
+  _reqPerm() {
+    if (!locationGetIt.getPermStatus) locationGetIt.requestLocationPerm();
   }
 }
