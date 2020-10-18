@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:online_grocery/provider/cart_provider.dart';
 import 'package:online_grocery/widgets/cart_list_products.dart';
-import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key key}) : super(key: key);
@@ -12,9 +12,9 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Cart"),
       ),
-      body: Consumer<CartProvider>(
-        builder: (context, _cart, child) {
-          List itemList = _cart.getCart;
+      body: Consumer(
+        builder: (context, watch, child) {
+          List itemList = watch(cartProvider).getCart;
           return ListView.builder(
             itemCount: itemList.length,
             itemBuilder: (context, index) {
@@ -26,8 +26,9 @@ class CartScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: Consumer<CartProvider>(
-        builder: (context, cart, child) {
+      floatingActionButton: Consumer(
+        builder: (context, watch, child) {
+          final _cart = watch(cartProvider).getCartTotal;
           return FloatingActionButton.extended(
             backgroundColor: Colors.deepOrangeAccent,
             onPressed: () {},
@@ -36,7 +37,7 @@ class CartScreen extends StatelessWidget {
               color: Colors.white,
             ),
             label: Text(
-              "₹${cart.getCartTotal}",
+              "₹$_cart",
               style: TextStyle(color: Colors.white),
             ),
           );

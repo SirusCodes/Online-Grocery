@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/all.dart';
 import 'package:online_grocery/constants.dart';
 import 'package:online_grocery/models/product_model.dart';
+
+final cartProvider =
+    ChangeNotifierProvider<CartProvider>((_) => CartProvider());
 
 class CartProvider extends ChangeNotifier {
   static List<ProductModel> _cart = [];

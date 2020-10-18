@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:online_grocery/provider/cart_provider.dart';
-import 'package:provider/provider.dart';
 
-class AddToCardButton extends StatelessWidget {
+class AddToCardButton extends ConsumerWidget {
   AddToCardButton({Key key, @required this.title, @required this.image})
       : super(key: key);
 
@@ -10,8 +10,8 @@ class AddToCardButton extends StatelessWidget {
   final Image image;
 
   @override
-  Widget build(BuildContext context) {
-    final _countProvider = Provider.of<CartProvider>(context);
+  Widget build(BuildContext context, ScopedReader watch) {
+    final _countProvider = watch(cartProvider);
     return _countProvider.getItemCount(title) <= 0
         ? RaisedButton(
             shape: RoundedRectangleBorder(

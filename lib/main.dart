@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/all.dart';
 import 'package:online_grocery/locator.dart';
-import 'package:online_grocery/provider/cart_provider.dart';
 import 'package:online_grocery/provider/theme_provider.dart';
 import 'package:online_grocery/screens/main_screen.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   setup(); // initializing get it
 
-  // take the previously set theme and pass it to the provider
-  SharedPreferences.getInstance().then((value) {
-    var darkMode = value.getBool("darkMode") ?? false;
-    runApp(ChangeNotifierProvider<ThemeProvider>(
-      create: (context) =>
-          ThemeProvider(themeData: darkMode ? darkTheme : lightTheme),
-      child: MyApp(),
-    ));
-  });
+  // take the previously set theme and pass it to the   provider
+  runApp(ProviderScope(child: MyApp()));
 
   // to make status bar transparent
   SystemChrome.setSystemUIOverlayStyle(
@@ -28,21 +19,15 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, theme, child) {
-        return ChangeNotifierProvider<CartProvider>(
-          create: (_) => CartProvider(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Online Grocery',
-            theme: theme.getTheme(),
-            home: MainScreen(),
-          ),
-        );
-      },
+  Widget build(BuildContext context, ScopedReader watch) {
+    final theme = watch(themeProvider.state);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Online Grocery',
+      theme: theme ? darkTheme : lightTheme,
+      home: MainScreen(),
     );
   }
 }

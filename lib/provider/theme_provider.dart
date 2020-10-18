@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/all.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeProvider extends ChangeNotifier {
-  ThemeData themeData;
+final themeProvider = StateNotifierProvider((_) => ThemeProvider());
 
-  ThemeProvider({this.themeData});
+class ThemeProvider extends StateNotifier<bool> {
+  ThemeProvider() : super(false);
 
-  getTheme() => themeData;
+  getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    state = prefs.getBool("darkMode");
+  }
 
-  setTheme(ThemeData themeData) async {
+  setTheme(bool theme) async {
     var prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("darkMode", themeData == darkTheme);
-    this.themeData = themeData;
-    notifyListeners();
+    await prefs.setBool("darkMode", theme);
+    state = theme;
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_grocery/widgets/add_to_cart_button.dart';
+import 'package:online_grocery/widgets/cart_icon.dart';
 
 import '../constants.dart';
 
@@ -13,6 +14,7 @@ class ProductDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
+        actions: <Widget>[CartIcon()],
       ),
       body: ListView(
         padding: const EdgeInsets.all(18.0),

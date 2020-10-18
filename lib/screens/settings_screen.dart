@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/all.dart';
 import 'package:online_grocery/provider/theme_provider.dart';
-import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key key}) : super(key: key);
@@ -10,14 +10,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _isDarkMode;
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final _themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-    _isDarkMode = _themeProvider.getTheme() == darkTheme;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,17 +18,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: ListView(
         children: <Widget>[
-          Consumer<ThemeProvider>(
-            builder: (context, theme, child) {
+          Consumer(
+            builder: (context, watch, child) {
+              final _isDarkMode = watch(themeProvider.state);
               return ListTile(
                 title: Text("Enable Dark Mode"),
                 trailing: Switch(
                   value: _isDarkMode,
                   onChanged: (value) {
-                    setState(() {
-                      _isDarkMode = value;
-                      theme.setTheme(_isDarkMode ? darkTheme : lightTheme);
-                    });
+                    context.read(themeProvider).setTheme(value);
                   },
                 ),
               );
